@@ -1,5 +1,8 @@
 class Admin::SessionsController < ApplicationController
   def new
+    if @current_user
+      redirect_to admin_articles_path
+    end
     @user = User.new
   end
 
@@ -20,6 +23,7 @@ class Admin::SessionsController < ApplicationController
   end
 
   def destroy
+    session.delete(:user_id)
     redirect_to new_admin_session_path
   end
 end
