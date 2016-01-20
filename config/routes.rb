@@ -1,4 +1,40 @@
 Rails.application.routes.draw do
+  namespace :admin do
+  get 'articles/new'
+  end
+
+  namespace :admin do
+  get 'articles/create'
+  end
+
+  namespace :admin do
+  get 'articles/index'
+  end
+
+  namespace :admin do
+  get 'articles/edit'
+  end
+
+  namespace :admin do
+  get 'articles/update'
+  end
+
+  namespace :admin do
+  get 'articles/destroy'
+  end
+
+  namespace :admin do
+  get 'sessions/new'
+  end
+
+  namespace :admin do
+  get 'sessions/create'
+  end
+
+  namespace :admin do
+  get 'sessions/destroy'
+  end
+
   get 'home/index'
   root 'home#index'
 
