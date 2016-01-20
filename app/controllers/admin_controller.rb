@@ -5,7 +5,7 @@ class AdminController < ApplicationController
 
   def authenticate_user
     if @current_user.nil?
-      redirect_to admin_sessions_new_path
+      redirect_to new_admin_sessions_path
     end
   end
 end
