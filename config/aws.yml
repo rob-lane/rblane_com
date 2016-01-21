@@ -1,0 +1,9 @@
+development: &development
+  region: 'us-west-1'
+  access_key_id: <%= ENV['AWS_ACCESS_KEY_ID'] %>
+  secret_access_key: <%= ENV['AWS_SECRET_ACCES_KEY'] %>
+  cert: <%= "#{Rails.root}/#{ENV['RUBY_SSL_CERT']}" %>
+test:
+  <<: *development
+production:
+  <<: *development
