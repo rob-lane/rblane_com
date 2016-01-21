@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160120040638) do
+ActiveRecord::Schema.define(version: 20160121005350) do
+
+  create_table "articles", force: :cascade do |t|
+    t.string   "s3_key"
+    t.string   "title"
+    t.integer  "author_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "articles", ["author_id"], name: "index_articles_on_author_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email"
