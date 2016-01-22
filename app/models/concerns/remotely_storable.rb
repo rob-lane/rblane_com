@@ -6,11 +6,12 @@ module RemotelyStorable
     validates :content, :presence => true
     validates_presence_of :format
     before_create :sync
+    after_find :fetch_content
     attr_accessor :format
     class << self
       attr_reader :store_options
     end
-    @required_options = [:bucket, :path, :formats]
+    @required_options = [:bucket, :path]
     @store_options = {}
   end
 
@@ -32,14 +33,21 @@ module RemotelyStorable
     end
   end
 
-  def sync(client = s3)
+  def sync
     store_options = self.class.store_options
     if self.valid?
-      client.put_object(:acl => store_options.fetch(:acl) { 'public-read'},
+      s3.put_object(:acl => store_options.fetch(:acl) { 'public-read'},
                     :bucket => store_options[:bucket],
                     :key => "#{store_options[:path]}/#{s3_key}",
                     :body => self.content,
                     :content_length => self.content.length)
+    end
+  end
+
+  def fetch_content
+    store_options = self.class.store_options
+    if self.s3_key.present?
+      self.content = s3.get_object(:bucket => store_options[:bucket], :key => "#{store_options[:path]}/#{s3_key}")
     end
   end
 

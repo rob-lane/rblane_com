@@ -1,28 +1,12 @@
 require 'test_helper'
+require 'support/remotely_storable_test'
 
 class ArticleTest < ActiveSupport::TestCase
+  include RemoteleyStorableTest
 
   def setup
-    @record = Article.new(:title => 'test article', :content => '<html><body>foo</body></html>')
-    @mock_client = MiniTest::Mock.new
-    @record.instance_variable_set(:@s3, @mock_client)
-    def @mock_client.put_object(args); nil; end
-  end
-
-  test 'valid store options' do
-    assert(@record.class.valid_remote_store?, "Article should define valid RemotelyStorable options")
-  end
-
-  test 'sync uses correct options' do
-    store_options = @record.class.store_options.dup
-    # Defaults set by sync method
-    store_options[:acl] ||= 'private'
-    # Values populated by sync method
-    store_options[:body] ||= @record.content
-    store_options[:content_length] ||= @record.content.length
-    store_options[:key] ||= "#{store_options[:path]}/#{@record.s3_key}}"
-    @mock_client.expect(:put_object, nil, [store_options])
-    @record.sync
+    @record = Article.new(:title => 'test_article', :content => 'Test Content', s3_key: 'test_key.html')
+    super
   end
 
   test 'invalid without content' do
@@ -36,6 +20,9 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   test 'syncs to client on save' do
+    # TODO: Improve IOC and dep. injection for this
+    @record.instance_variable_set(:@s3, @mock_client)
+
     @mock_client.expect(:put_object, nil, [Hash])
     @record.save!
     assert(@record.valid?, 'Synced article should be valid')

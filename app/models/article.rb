@@ -6,7 +6,7 @@ class Article < ActiveRecord::Base
   before_validation :default_s3_key
   validates_presence_of :title
 
-  store_remotely :bucket => 'coolane', :path => 'rblane_com/articles', :formats => ['html']
+  store_remotely :bucket => 'coolane', :path => 'rblane_com/articles'
   belongs_to :author, :class_name => :user
 
   private
@@ -16,6 +16,6 @@ class Article < ActiveRecord::Base
   end
 
   def default_s3_key
-    self.s3_key ||= "#{self.title}.#{self.format}"
+    self.s3_key ||= "#{SecureRandom.uuid}.#{self.format}"
   end
 end
