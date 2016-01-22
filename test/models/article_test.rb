@@ -24,6 +24,7 @@ class ArticleTest < ActiveSupport::TestCase
     @record.instance_variable_set(:@s3, @mock_client)
 
     @mock_client.expect(:put_object, nil, [Hash])
+    @mock_client.expect(:delete_object, nil, [Hash])
     @record.save!
     assert(@record.valid?, 'Synced article should be valid')
     @record.destroy

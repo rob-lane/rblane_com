@@ -40,4 +40,12 @@ module RemoteleyStorableTest
     @record.fetch_content
     assert_equal(test_content, @record.content, 'Fetch content should populate content from s3 client')
   end
+
+  def test_destroy_content_uses_correct_options
+    expected_options = {
+        :bucket => @store_options[:bucket],
+        :key => "#{@store_options[:path]}/#{@record.s3_key}" }
+    @mock_client.expect(:delete_object, nil, [expected_options])
+    @record.destroy_content
+  end
 end

@@ -6,6 +6,7 @@ module RemotelyStorable
     validates :content, :presence => true
     validates_presence_of :format
     before_create :sync
+    before_destroy :destroy_content
     after_find :fetch_content
     attr_accessor :format
     class << self
@@ -33,8 +34,11 @@ module RemotelyStorable
     end
   end
 
+  def store_options
+    self.class.store_options
+  end
+
   def sync
-    store_options = self.class.store_options
     if self.valid?
       s3.put_object(:acl => store_options.fetch(:acl) { 'public-read'},
                     :bucket => store_options[:bucket],
@@ -45,9 +49,14 @@ module RemotelyStorable
   end
 
   def fetch_content
-    store_options = self.class.store_options
     if self.s3_key.present?
       self.content = s3.get_object(:bucket => store_options[:bucket], :key => "#{store_options[:path]}/#{s3_key}")
+    end
+  end
+
+  def destroy_content
+    if self.s3_key.present?
+      s3.delete_object(:bucket => store_options[:bucket], :key => "#{store_options[:path]}/#{s3_key}")
     end
   end
 
