@@ -4,16 +4,17 @@ class Admin::ArticlesController < AdminController
   end
 
   def create
-    @article = Article.create!(article_params)
+     @article = @current_user.articles.create!(article_params)
+    redirect_to edit_admin_article_path(@article)
   end
 
   def index
     # TODO: Pagination
-    @articles = Article.all
+    @articles = @current_user.articles
   end
 
   def edit
-    @article = Article.find(params[:id])
+    @article = Article.find_by(:id => params[:id])
     not_found if @article.nil?
   end
 
@@ -24,7 +25,7 @@ class Admin::ArticlesController < AdminController
   end
 
   def destroy
-    @article = Article.find(params[:id])
+    @article = Article.find_by(:id => params[:id])
     not_found if @article.nil?
     @article.destroy!
     redirect_to admin_articles_path

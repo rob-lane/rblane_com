@@ -1,11 +1,9 @@
 class AdminController < ApplicationController
   before_filter :authenticate_user
 
-  private
+  protected
 
   def authenticate_user
-    if @current_user.nil?
-      redirect_to new_admin_session_path
-    end
+    redirect_to new_admin_session_path unless signed_in?
   end
 end

@@ -3,7 +3,7 @@ class CreateArticles < ActiveRecord::Migration
     create_table :articles do |t|
       t.string :s3_key
       t.string :title
-      t.references :author, index: true, foreign_key: true
+      t.references :user, index: true, foreign_key: true
 
       t.timestamps null: false
     end
