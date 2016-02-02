@@ -2,11 +2,13 @@ RSpec.shared_examples "it is remotely storable" do
 
   before do
     @mock_client = double("S3")
+    @mock_response = double("Response")
     @store_options = described_class.store_options
     allow(subject).to receive(:s3) { @mock_client }
     allow(@mock_client).to receive(:put_object)
-    allow(@mock_client).to receive(:get_object) { test_content }
+    allow(@mock_client).to receive(:get_object) { @mock_response }
     allow(@mock_client).to receive(:delete_object)
+    allow(@mock_response).to receive(:body) { StringIO.new(test_content) }
   end
 
   it 'with valid store options' do

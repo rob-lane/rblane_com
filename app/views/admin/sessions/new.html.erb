@@ -4,8 +4,8 @@
 <% end %>
 <%= form_for(@user, url: admin_sessions_path) do |f| %>
   <div>
-    Email: <%= f.text_field :email, :required => true, :autofocus => true %><br />
-    Password: <%= f.password_field :password, :required => true %>
+    <%= f.label :email, :Email %><%= f.text_field :email, :required => true, :autofocus => true %><br />
+    <%= f.label :password, :Password %> <%= f.password_field :password, :required => true %>
   </div>
   <div>
     <%= f.submit "Log In" %>

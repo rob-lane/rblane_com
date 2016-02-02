@@ -1,5 +1,7 @@
-<%= form_for @article do |f| %>
-    Title: <%= f.text_field :title %><br/>
-    Content: <%= f.text_area :content %><br />
-    <%= f.submit :save %>
+<% url = @article.persisted? ? admin_article_path(@article) : admin_articles_path %>
+<% method = @article.persisted? ? :put : :post %>
+<%= form_for @article, :url => url, :method => method do |f| %>
+    <%= f.label :title, 'Title' %><%= f.text_field :title %><br/>
+    <%= f.label :content, 'Content' %><%= f.text_area :content %><br />
+    <%= f.submit "Save" %>
 <% end %>

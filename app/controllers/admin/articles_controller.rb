@@ -4,7 +4,7 @@ class Admin::ArticlesController < AdminController
   end
 
   def create
-     @article = @current_user.articles.create!(article_params)
+    @article = @current_user.articles.create!(article_params)
     redirect_to edit_admin_article_path(@article)
   end
 
@@ -21,6 +21,7 @@ class Admin::ArticlesController < AdminController
   def update
     @article = Article.find(params[:id])
     @article.update!(article_params)
+    @article.sync
     redirect_to admin_articles_path
   end
 
