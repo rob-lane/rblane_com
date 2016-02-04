@@ -5,3 +5,6 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+Setting.create([
+    {name: 'template_name', value: 'rblane_com' },
+    {name: 'title', value: 'rblane.com' } ])
