@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>RblaneCom</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <title><%= @title ||= "Rblane_com" %></title>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= yield :stylesheet_links  if content_for? :stylesheet_links %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= yield :javascript_links  if content_for? :javascript_links %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+<%= render "shared/header" %>
 <%= yield %>
-
+<%= render "shared/footer" %>
 </body>
 </html>
