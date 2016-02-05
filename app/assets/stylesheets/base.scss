@@ -1,1 +1,14 @@
 @import "compass";
+@import "compass/layout/stretching";
+
+#admin-wrapper {
+  width: 1000px;
+  .sidebar {
+    float: left;
+    width: 300px;
+  }
+  .main-content {
+    float: left;
+    width: 700px;
+  }
+}

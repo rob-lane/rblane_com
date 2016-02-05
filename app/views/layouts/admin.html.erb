@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= @title ||= "Rblane_com" %></title>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= yield :stylesheet_links  if content_for? :stylesheet_links %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= yield :javascript_links  if content_for? :javascript_links %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div id="admin-wrapper">
+  <div class="top-bar"><%= link_to "Logout", admin_session_path(@current_user.id), :method => :delete %></div>
+  <%= render :partial => 'admin/shared/sidebar' %>
+  <%= content_for?(:content) ? yield(:content) : yield %>
+</div>
+</body>
+</html>

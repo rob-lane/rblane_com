@@ -1,5 +1,10 @@
 class AdminController < ApplicationController
+  layout 'admin'
   before_filter :authenticate_user
+
+  def index
+    @category = params.fetch(:category) { 'index' }
+  end
 
   protected
 

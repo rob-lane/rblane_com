@@ -14,7 +14,7 @@ class Admin::SessionsController < ApplicationController
       if params[:redirect_to]
         redirect_to params[:redirect_to]
       else
-        redirect_to admin_articles_path
+        redirect_to admin_path
       end
     else
       flash[:error] = "Invalid email or password provided..."

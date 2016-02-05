@@ -1,0 +1,6 @@
+<ul class="article-snippet">
+  <li class="title"><strong>Title:</strong><%= article.title %></li>
+  <li class="snippet"><strong>Content:</strong><%= article.content[0,400] %></li>
+  <li class="edit-link"><%= link_to edit_admin_article_path(article), :target => '_top' %></li>
+  <li class="delete-link"><%= link_to admin_article_path(article), :method => 'delete', :target => '_top' %></li>
+</ul>

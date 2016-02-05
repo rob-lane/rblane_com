@@ -1,0 +1,14 @@
+<section class="sidebar">
+  <h1>Management</h1>
+  <ul class="sidebar-links">
+    <% ['settings', 'articles'].each do |category| %>
+        <li>
+          <%= if controller_name == category
+                link_to category.capitalize, '#', :class => 'active'
+              else
+                link_to category.capitalize, send("admin_#{category}_path".to_sym)
+          end %>
+        </li>
+    <% end %>
+  </ul>
+</section>
