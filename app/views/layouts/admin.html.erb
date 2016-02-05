@@ -9,7 +9,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div id="admin-wrapper">
+<div id="admin_wrapper">
   <div class="top-bar"><%= link_to "Logout", admin_session_path(@current_user.id), :method => :delete %></div>
   <%= render :partial => 'admin/shared/sidebar' %>
   <%= content_for?(:content) ? yield(:content) : yield %>
