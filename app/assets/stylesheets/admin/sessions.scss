@@ -1,3 +1,17 @@
-// Place all the styles related to the Admin::Sessions controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+#session_wrapper
+{
+  #login_wrapper {
+    width: 450px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border: 5px solid black;
+    border-radius: 7px;
+
+    h1 {
+      background-color: tan;
+      text-align: center;
+      width: 100%;
+    }
+  }
+}

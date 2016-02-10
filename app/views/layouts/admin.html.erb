@@ -10,9 +10,13 @@
 </head>
 <body>
 <div id="admin_wrapper">
-  <div class="top-bar"><%= link_to "Logout", admin_session_path(@current_user.id), :method => :delete %></div>
-  <%= render :partial => 'admin/shared/sidebar' %>
-  <%= content_for?(:content) ? yield(:content) : yield %>
+  <%= render :partial => 'admin/shared/topbar' %>
+  <div id="content_wrapper">
+    <%= render :partial => 'admin/shared/sidebar' %>
+    <section class="main-content">
+      <%= content_for?(:content) ? yield(:content) : yield %>
+    </section>
+  </div>
 </div>
 </body>
 </html>

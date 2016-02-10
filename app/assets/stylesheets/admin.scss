@@ -1,0 +1,93 @@
+@import "admin/*";
+
+#admin_wrapper {
+  width: 99%;
+  display: inline-block;
+  margin-top: 0;
+  a {
+    text-decoration: none;
+  }
+
+  .topbar {
+    width: 100%;
+    background: tan;
+    display: inline-block;
+    padding: 5px;
+    margin-top: 0;
+    border: 5px solid black;
+    border-top: 0;
+    border-bottom-right-radius: 5px;
+
+    ul.links {
+      list-style-type: none;
+      margin: 0;
+      display: inline-block;
+      margin: 0 12px 0 12px;
+      a {
+        font-weight: bold;
+      }
+    }
+    ul.links-right {
+      float: right;
+    }
+  }
+  .sidebar {
+    position: absolute;
+    top: 28px;
+    bottom: 0;
+    width: 150px;
+    border: 5px solid black;
+
+    h1 {
+      text-align: center;
+      width: 100%;
+      color: green;
+    }
+
+    .sidebar-links {
+      list-style-type: none;
+      padding: 0;
+      li {
+        padding: 5px;
+        text-align: center;
+        border: 1px solid black;
+        a {
+          text-decoration: none;
+          display: inline-block;
+          width: 100%;
+        }
+        a:hover {
+          color: brown;
+        }
+      }
+      li:hover {
+        background-color: tan;
+      }
+    }
+  }
+  .main-content {
+    position: absolute;
+    top: 35px;
+    bottom: 0;
+    left: 170px;
+    display: inline-block;
+    width: 80%;
+    min-width: 200px;
+
+    .content-title {
+      display: inline-block;
+      color: green;
+      width: 100%;
+      text-align: center;
+    }
+
+    .settings-form-group {
+      list-style-type: none;
+      padding: 0;
+      li {
+        padding: 5px;
+        margin-bottom: 12px;
+      }
+    }
+  }
+}
