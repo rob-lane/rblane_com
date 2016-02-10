@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_title
-    @title ||= Setting.find_by(:name => 'title').value
+    @title ||= Setting.find_by(:name => 'title').try(:value)
   end
 
 end

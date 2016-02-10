@@ -5,7 +5,7 @@ RSpec.describe Setting, type: :model do
   context 'created without a name' do
 
     it 'is invalid' do
-      setting.build
+      setting = Setting.new
       expect(setting).to be_invalid
     end
 
@@ -14,7 +14,7 @@ RSpec.describe Setting, type: :model do
   context 'created with a name' do
 
     it 'is valid' do
-      setting.build(name: 'foo')
+      setting = Setting.new(name: 'foo')
       expect(setting).to be_valid
     end
 

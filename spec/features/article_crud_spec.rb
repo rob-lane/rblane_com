@@ -12,12 +12,12 @@ describe 'article CRUD' do
   end
 
   after do
+    @user.articles.delete_all
     sign_out
   end
 
   after(:all) do
-    @user.articles.delete_all
-    @user.destroy
+    @user.destroy!
   end
 
   context 'creating a new article' do
@@ -87,6 +87,30 @@ describe 'article CRUD' do
       @user.articles.each do |article|
         expect(page).to have_content(article.title)
       end
+    end
+
+  end
+
+  context 'deleting an article' do
+
+    before do
+      @article = @user.articles.create(:title => 'Test Title', :content => 'This is a test')
+    end
+
+    it 'removes the article from the index page' do
+      visit '/admin/articles'
+      within "#article_snippet_#{@article.id}" do
+        click_link "Delete"
+      end
+      expect(page).to_not have_content(@article.title)
+    end
+
+    it 'removes the content from the remote store' do
+      visit '/admin/articles'
+      within "#article_snippet_#{@article.id}" do
+        click_link "Delete"
+      end
+      expect {@article.fetch_content}.to raise_error(Aws::S3::Errors::NoSuchKey)
     end
 
   end
