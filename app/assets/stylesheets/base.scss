@@ -28,6 +28,7 @@ form {
     text-align: right;
     padding-right: 15px;
     font-weight: bold;
+    vertical-align: top;
   }
   .form_section {
     display: inline-block;
@@ -46,8 +47,6 @@ form {
     }
   }
 }
-
-
 
 #content_wrapper {
   display: inline-block;
