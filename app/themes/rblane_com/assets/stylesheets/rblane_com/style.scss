@@ -6,3 +6,14 @@
     padding-top: 5px;
   }
 }
+
+#content_wrapper {
+  @include container;
+
+  .sidebar {
+    @include span(3 last);
+  }
+  .snippets {
+    @include span(9 first);
+  }
+}

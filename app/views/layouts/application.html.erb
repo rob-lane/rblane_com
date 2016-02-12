@@ -7,10 +7,17 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= yield :javascript_links  if content_for? :javascript_links %>
   <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=500, initial-scale=1">
 </head>
 <body>
-<%= render "shared/header" %>
-<%= yield %>
-<%= render "shared/footer" %>
+<% if content_for?(:content) %>
+  <%= yield(:content) %>
+<% else %>
+  <%= render "shared/header" %>
+  <section id="content_wrapper">
+    <%= yield %>
+  </section>
+  <%= render "shared/footer" %>
+<% end %>
 </body>
 </html>
