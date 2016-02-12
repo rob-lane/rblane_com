@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  before_action :add_template_path
+  before_action :add_template_views_path
   before_action :load_title
 
   protected
@@ -21,12 +21,12 @@ class ApplicationController < ActionController::Base
   end
 
   def template_name
-    @template_name ||= Setting.find_by(:name => 'template_name').value
+    Rails.application.config.templates.name
   end
 
-  def add_template_path
-    template_path = Rails.root.join('app', 'templates', 'current')
-    prepend_view_path(template_path.join('views')) unless view_paths.include?(template_path.join('views'))
+  def add_template_views_path
+    template_views_path = Rails.application.config.templates.path.join('views')
+    prepend_view_path(template_views_path) unless view_paths.include?(template_views_path)
   end
 
   def load_title

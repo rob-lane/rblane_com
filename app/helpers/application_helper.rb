@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def current_template
-    Setting.find_by(:name => 'template_name').value
+    Rails.application.config.templates.template_name
   end
 
 end
