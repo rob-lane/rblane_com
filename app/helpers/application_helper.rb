@@ -9,7 +9,7 @@ module ApplicationHelper
   end
 
   def subtitle
-    Settings.find_by(:name => 'subtitle').try(:value)
+    Setting.find_by(:name => 'subtitle').try(:value)
   end
 
 end

@@ -4,7 +4,7 @@
     <% @settings.each do |setting| %>
       <li class="form-section">
         <%= hidden_field_tag 'settings[][id]', setting.id %>
-        <label><strong><%= setting.name.humanize %>:</strong></label><%= text_field_tag 'settings[][value]', setting.value %>
+        <label><strong><%= setting.name.humanize %>:</strong></label><%= text_field_tag 'settings[][value]', setting.value, :id => "setting_#{setting.id}" %>
       </li>
     <% end %>
     <%= submit_tag 'Save' %>
