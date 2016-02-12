@@ -5,15 +5,12 @@ class Admin::SettingsController < AdminController
   end
 
   def update
-    @setting = Setting.find(params[:id])
-    @setting.update(settings_params)
+    params[:settings].each do |setting_params|
+      setting = Setting.find_by(:id => setting_params[:id])
+      setting.value = setting_params[:value]
+      setting.save!
+    end
     redirect_to admin_settings_path
   end
-
-  protected
-
-    def settings_params
-      params.require(:setting).permit(:value)
-    end
 
 end

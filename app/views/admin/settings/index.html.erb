@@ -1,11 +1,12 @@
 <h1 class="content-title">Blog Settings</h1>
 <ul class="settings-form-group">
-  <% @settings.each do |setting| %>
-    <li class="form-section">
-      <%= form_for setting, :url => admin_settings_path(setting), :method => :put do |form| %>
-        <label><strong><%= setting.name.humanize %>:</strong></label><%= form.text_field :value %>
-        <%= form.submit 'Save' %>
-      <% end %>
-    </li>
+  <%= form_tag(admin_settings_path, :method => :put) do %>
+    <% @settings.each do |setting| %>
+      <li class="form-section">
+        <%= hidden_field_tag 'settings[][id]', setting.id %>
+        <label><strong><%= setting.name.humanize %>:</strong></label><%= text_field_tag 'settings[][value]', setting.value %>
+      </li>
+    <% end %>
+    <%= submit_tag 'Save' %>
   <% end %>
 </ul>

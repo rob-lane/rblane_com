@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :articles, :except => [:show]
     resources :sessions, :only => [:new, :create, :destroy]
-    resources :settings, :only => [:index, :update]
+    get 'settings', :to => 'settings#index'
+    match 'settings', :to => 'settings#update', via: :put
   end
   get 'articles/index'
   get 'home/index'
