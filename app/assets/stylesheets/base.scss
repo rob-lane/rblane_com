@@ -1,5 +1,13 @@
 @import "compass";
-@import "compass/layout/stretching";
+@import "susy";
+
+/* Susy settings */
+$susy: (
+  columns: 12,
+  gutters: 0.25,
+  container: 960px
+);
+
 body {
   margin-top: 0;
   font-family: "Arial", "Helvetica", "sans-serif";
