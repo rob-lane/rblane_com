@@ -1,26 +1,12 @@
 require 'rails_helper'
 
 describe 'article CRUD' do
-  include SignInHelper
-
-  before(:all) do
-    @user = FactoryGirl.create(:admin)
-  end
-
-  before do
-    sign_in
-  end
-
-  after do
-    @user.articles.delete_all
-    sign_out
-  end
-
-  after(:all) do
-    @user.destroy!
-  end
+  include_examples "signed in"
 
   context 'creating a new article' do
+    after do
+      @user.articles.delete_all
+    end
 
     it 'presents a title and content form' do
       visit '/admin/articles/new'
@@ -40,13 +26,14 @@ describe 'article CRUD' do
       expect(page).to have_field('Content')
       expect(find_field('Content').value).to eql(test_content)
     end
-
   end
 
   context 'editing an existing article' do
-
     before do
       @article = @user.articles.create(:title => 'Test Title', :content => 'This is a test')
+    end
+    after do
+      @article.destroy!
     end
 
     it 'presents a title and content form' do
@@ -71,15 +58,17 @@ describe 'article CRUD' do
       expect(@article.title).to eql(updated_title)
       expect(@article.content).to eql(updated_content)
     end
-
   end
 
   context 'viewing all articles' do
-
     before do
       5.times do |i|
         @user.articles.create!(:title => "Article #{i}", :content => "Article content #{i}")
       end
+    end
+
+    after do
+      @user.articles.delete_all
     end
 
     it 'displays all articles for the current user' do
@@ -88,11 +77,9 @@ describe 'article CRUD' do
         expect(page).to have_content(article.title)
       end
     end
-
   end
 
   context 'deleting an article' do
-
     before do
       @article = @user.articles.create(:title => 'Test Title', :content => 'This is a test')
     end
@@ -112,7 +99,5 @@ describe 'article CRUD' do
       end
       expect {@article.fetch_content}.to raise_error(Aws::S3::Errors::NoSuchKey)
     end
-
   end
-
 end
