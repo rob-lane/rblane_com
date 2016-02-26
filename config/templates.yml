@@ -1,9 +1,0 @@
-default: &default
-  path: 'app/templates'
-  name: 'rblane_com'
-development:
-  <<: *default
-test:
-  <<: *default
-production:
-  <<: *default

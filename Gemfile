@@ -32,6 +32,9 @@ gem 'dotenv-rails'
 # Communicate with AWS
 gem 'aws-sdk', '~> 2'
 
+# Simple Rails themes
+gem 'shiny_themes'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 

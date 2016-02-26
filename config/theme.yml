@@ -1,0 +1,8 @@
+---
+development: &development
+  name: 'rblane_com'
+  layout: 'application'
+test:
+  <<: *development
+production:
+  <<: *development

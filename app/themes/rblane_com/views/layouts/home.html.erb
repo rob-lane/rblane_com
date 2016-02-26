@@ -1,0 +1,7 @@
+<% content_for :stylesheet_links do %>
+  <%= stylesheet_link_tag 'rblane_com/manifest', :media => :all %>
+<% end %>
+<% content_for :javascript_links do %>
+  <%= javascript_include_tag 'rblane_com/manifest', :media => :all %>
+<% end %>
+<%= render :template => "layouts/application" %>
