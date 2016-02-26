@@ -7,4 +7,6 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 User.create([email: 'roblane09@gmail.com', password: 'password'])
 Setting.create([
-    {name: 'title', value: 'A Simple Blog' },{name: 'subtitle', value: 'By Rob Lane'}])
+    { name: 'title', value: 'A Simple Blog' },
+    { name: 'subtitle', value: 'By Rob Lane' },
+    { name: 'logo', value: '', type: 'image' }])

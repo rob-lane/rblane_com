@@ -20,4 +20,14 @@ RSpec.describe Setting, type: :model do
 
   end
 
+  context 'created without a type' do
+
+    it "defaults to 'text'" do
+      setting = Setting.create(name: 'foo')
+      expect(setting.field_type).to eql('text')
+      setting.destroy!
+    end
+
+  end
+
 end
