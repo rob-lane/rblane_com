@@ -3,10 +3,11 @@ require 'rails_helper'
 describe 'article CRUD' do
   include_examples "signed in"
 
+  after do
+    @user.articles.delete_all
+  end
+
   context 'creating a new article' do
-    after do
-      @user.articles.delete_all
-    end
 
     it 'presents a title and content form' do
       visit '/admin/articles/new'
@@ -31,9 +32,6 @@ describe 'article CRUD' do
   context 'editing an existing article' do
     before do
       @article = @user.articles.create(:title => 'Test Title', :content => 'This is a test')
-    end
-    after do
-      @article.destroy!
     end
 
     it 'presents a title and content form' do
@@ -65,10 +63,6 @@ describe 'article CRUD' do
       5.times do |i|
         @user.articles.create!(:title => "Article #{i}", :content => "Article content #{i}")
       end
-    end
-
-    after do
-      @user.articles.delete_all
     end
 
     it 'displays all articles for the current user' do

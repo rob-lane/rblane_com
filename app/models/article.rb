@@ -9,8 +9,6 @@ class Article < ActiveRecord::Base
   store_remotely :bucket => 'coolane', :path => 'rblane_com/articles'
   belongs_to :author, :class_name => :user
 
-  private
-
   def default_format
     self.format ||= 'html'
   end
@@ -18,4 +16,5 @@ class Article < ActiveRecord::Base
   def default_s3_key
     self.s3_key ||= "#{SecureRandom.uuid}.#{self.format}"
   end
+
 end

@@ -51,7 +51,11 @@ module RemotelyStorable
   def fetch_content
     if self.s3_key.present?
       response = s3.get_object(:bucket => store_options[:bucket], :key => "#{store_options[:path]}/#{s3_key}")
-      self.content = response.body.read
+      if self.format =~ /^image/
+        self.content = response.public_url
+      else
+        self.content = response.body.read
+      end
     end
   end
 

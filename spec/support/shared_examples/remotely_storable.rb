@@ -9,6 +9,7 @@ RSpec.shared_examples "it is remotely storable" do
     allow(@mock_client).to receive(:get_object) { @mock_response }
     allow(@mock_client).to receive(:delete_object)
     allow(@mock_response).to receive(:body) { StringIO.new(test_content) }
+    allow(@mock_response).to receive(:public_url) { test_content }
   end
 
   it 'with valid store options' do
@@ -59,6 +60,28 @@ RSpec.shared_examples "it is remotely storable" do
       }
       expect(@mock_client).to receive(:delete_object).with(delete_options)
       subject.destroy_content
+    end
+
+  end
+
+  context 'being saved' do
+
+    it 'syncs to the remote client' do
+      expect(subject.s3).to receive(:put_object)
+      subject.save!
+      expect(subject).to be_valid
+      subject.destroy!
+    end
+
+  end
+
+  context 'being destroyed' do
+
+    before { subject.save }
+
+    it 'destroys content with remote client' do
+      expect(subject.s3).to receive(:delete_object)
+      subject.destroy
     end
 
   end

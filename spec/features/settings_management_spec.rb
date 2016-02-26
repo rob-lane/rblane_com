@@ -17,7 +17,11 @@ RSpec.describe 'Settings management', :type => :feature do
 
   context 'the title setting' do
     before do
-      @setting = Setting.find_by(:name => 'title')
+      @setting = FactoryGirl.create(:title_setting)
+    end
+
+    after do
+      @setting.destroy!
     end
 
     it 'displays on the default home page' do

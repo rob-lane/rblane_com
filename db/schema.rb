@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160202205016) do
+ActiveRecord::Schema.define(version: 20160226043331) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "s3_key"
@@ -22,6 +22,25 @@ ActiveRecord::Schema.define(version: 20160202205016) do
   end
 
   add_index "articles", ["user_id"], name: "index_articles_on_user_id"
+
+  create_table "images", force: :cascade do |t|
+    t.string  "s3_key"
+    t.string  "name"
+    t.integer "user_id"
+  end
+
+  add_index "images", ["s3_key"], name: "index_images_on_s3_key"
+  add_index "images", ["user_id"], name: "index_images_on_user_id"
+
+  create_table "pages", force: :cascade do |t|
+    t.string   "path"
+    t.string   "title"
+    t.string   "layout"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "pages", ["path"], name: "index_pages_on_path", unique: true
 
   create_table "settings", force: :cascade do |t|
     t.string   "name"
