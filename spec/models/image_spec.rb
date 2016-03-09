@@ -1,45 +1,57 @@
 require 'rails_helper'
 
 describe Image do
-  it_behaves_like "it is remotely storable"
-
   subject do
     Image.new(
-        :content => test_content,
+        :file => test_file,
         :name => 'Test Image',
-        :format => 'image/jpg',
         :user => user)
   end
 
-  let(:user) do
-    FactoryGirl.create(:admin)
+  let(:test_file) do
+    fixture_file('default.jpg')
   end
 
-  before do
-    subject.s3_key = subject.default_s3_key
+  let!(:user) do
+    FactoryGirl.create(:admin)
   end
 
   after do
     user.destroy!
   end
 
-  let(:test_content) do
-    'http://image-url/test_image.jpg'
+  it 'has a file attachment' do
+    expect(subject).to have_attached_file(:file)
   end
 
-  it 'is invalid without content' do
-    subject.content = nil
-    expect(subject).to_not be_valid
+  it 'validates attachment as an image' do
+    invalid_types, valid_types = ['text/plain', 'text/html'], ['image/png', 'image/jpg', 'image/gif']
+    expect(subject).to validate_attachment_content_type(:file).allowing(*valid_types).rejecting(*invalid_types)
   end
 
-  it 'is invalid without a user' do
-    subject.user = nil
-    expect(subject).to_not be_valid
+  it 'validates attachment presence' do
+    expect(subject).to validate_attachment_presence(:file)
   end
 
-  it 'is valid with content and a user' do
-    expect(subject.content).to_not be_empty
-    expect(subject.user).to_not be_nil
+  context 'created without a user' do
+
+    it 'is invalid' do
+      subject.user = nil
+      expect(subject).to_not be_valid
+    end
+
+  end
+
+  context 'created without a name' do
+
+    it 'is invalid' do
+      subject.name = nil
+      expect(subject).to_not be_valid
+    end
+
+  end
+
+  it 'is valid with content, file attachment and a user' do
     expect(subject).to be_valid
   end
 

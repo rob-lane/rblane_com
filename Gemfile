@@ -31,7 +31,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'dotenv-rails'
 
 # Communicate with AWS
-gem 'aws-sdk', '~> 2'
+gem 'aws-sdk', '< 2.0'
+gem 'paperclip', '~> 4.3'
 
 # Simple Rails themes
 gem 'shiny_themes'

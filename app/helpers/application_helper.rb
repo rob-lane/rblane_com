@@ -14,7 +14,7 @@ module ApplicationHelper
       Rails.logger.error("Invalid image name #{name} for remote_image_tag")
       image_tag('default.png', options)
     else
-      image_tag(image.content, options)
+      image_tag(image.url, options)
     end
   end
 

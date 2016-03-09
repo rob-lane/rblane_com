@@ -1,19 +1,55 @@
 require 'rails_helper'
 
 describe Article do
-  it_behaves_like "it is remotely storable"
-
-  subject { Article.new( :content => test_content, :title => 'test article', :s3_key => 'test_key.html') }
-  let(:test_content) { 'Test Content' }
-
-  it 'is invalid without content' do
-    subject.content = nil
-    expect(subject).to_not be_valid
+  subject do
+    Article.new(
+        :file => test_file,
+        :title => 'test article')
   end
 
-  it 'is valid with content' do
-    expect(subject.content).to_not be_empty
-    expect(subject).to be_valid
+  after do
+    subject.destroy! if subject.persisted?
+  end
+
+  let(:test_file) { fixture_file('sample-article.html') }
+
+  it 'has a file attachment' do
+    expect(subject).to have_attached_file(:file)
+  end
+
+  it 'validates attachment as html' do
+    invalid_types, valid_types = ['image/png', 'image/jpg', 'image/gif'], ['text/plain']
+    expect(subject).to validate_attachment_content_type(:file).allowing(*valid_types).rejecting(*invalid_types)
+  end
+
+  it 'validates attachment presence' do
+    expect(subject).to validate_attachment_presence(:file)
+  end
+
+  context 'created without a title' do
+
+    it 'is invalid' do
+      subject.title = nil
+      expect(subject).to_not be_valid
+    end
+
+  end
+
+  context 'created without a file' do
+
+    it 'is invalid' do
+      subject.file = nil
+      expect(subject).to_not be_valid
+    end
+
+  end
+
+  context 'content' do
+
+    it 'returns attachment content' do
+      expect(subject.content).to eql(test_file.read)
+    end
+
   end
 
 end

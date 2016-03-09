@@ -11,22 +11,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160226055658) do
+ActiveRecord::Schema.define(version: 20160226221022) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "s3_key"
     t.string   "title"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
   end
 
   add_index "articles", ["user_id"], name: "index_articles_on_user_id"
 
   create_table "images", force: :cascade do |t|
-    t.string  "s3_key"
-    t.string  "name"
-    t.integer "user_id"
+    t.string   "s3_key"
+    t.string   "name"
+    t.integer  "user_id"
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
   end
 
   add_index "images", ["s3_key"], name: "index_images_on_s3_key"

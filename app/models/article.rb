@@ -1,20 +1,15 @@
 class Article < ActiveRecord::Base
-  include RemotelyStorable
-  attr_accessor :content
-
-  before_validation :default_format
-  before_validation :default_s3_key
+  attr_accessor :file
+  has_attached_file :file, :content_type => "text/plain", :path => '/rblane_com/articles/:filename'
+  validates_attachment :file, :presence => true, :content_type => { :content_type => "text/plain" }
   validates_presence_of :title
-
-  store_remotely :bucket => 'coolane', :path => 'rblane_com/articles'
   belongs_to :author, :class_name => :user
 
-  def default_format
-    self.format ||= 'html'
+  def content
+    Paperclip.io_adapters.for(file).read.gsub(/\r\n?/, "\n")
   end
 
-  def default_s3_key
-    self.s3_key ||= "#{SecureRandom.uuid}.#{self.format}"
+  def content=(content)
+    self.update!(file: content)
   end
-
 end
