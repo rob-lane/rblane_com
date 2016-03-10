@@ -9,6 +9,21 @@
     text-decoration: none;
   }
 
+  input[type="submit"] {
+    border-radius: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    border-color: darkgreen;
+    background-color: tan;
+    min-width: 115px;
+    min-height: 22px;
+    display: block;
+  }
+  input[type="submit"]:hover {
+    background-color: lightgrey;
+    color: darkgreen;
+  }
+
   .topbar {
     width: 100%;
     background: tan;
@@ -80,15 +95,6 @@
       color: green;
       width: 100%;
       text-align: center;
-    }
-
-    .settings-form-group {
-      list-style-type: none;
-      padding: 0;
-      li {
-        padding: 5px;
-        margin-bottom: 12px;
-      }
     }
   }
 }

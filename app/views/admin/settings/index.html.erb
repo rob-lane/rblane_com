@@ -1,11 +1,8 @@
 <h1 class="content-title">Blog Settings</h1>
 <ul class="settings-form-group">
-  <%= form_tag(admin_settings_path, :method => :put) do %>
+  <%= form_tag(admin_settings_path, :method => :put, :html => { :multipart => true }) do %>
     <% @settings.each do |setting| %>
-      <li class="form-section">
-        <%= hidden_field_tag 'settings[][id]', setting.id %>
-        <label><strong><%= setting.name.humanize %>:</strong></label><%= text_field_tag 'settings[][value]', setting.value, :id => "setting_#{setting.id}" %>
-      </li>
+      <%= render :partial => "#{setting.field_type}_field", :locals => {:setting => setting} %>
     <% end %>
     <%= submit_tag 'Save' %>
   <% end %>

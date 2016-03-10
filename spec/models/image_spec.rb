@@ -29,10 +29,6 @@ describe Image do
     expect(subject).to validate_attachment_content_type(:file).allowing(*valid_types).rejecting(*invalid_types)
   end
 
-  it 'validates attachment presence' do
-    expect(subject).to validate_attachment_presence(:file)
-  end
-
   context 'created without a user' do
 
     it 'is invalid' do

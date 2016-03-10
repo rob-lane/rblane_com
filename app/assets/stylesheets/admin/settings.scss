@@ -1,0 +1,41 @@
+.settings-form-group {
+  list-style-type: none;
+  padding: 0;
+  li {
+    padding: 5px;
+    margin-bottom: 12px;
+  }
+  input[type="text"]{
+    width: 200px;
+    margin-bottom: 7px;
+  }
+  input[type="submit"]{
+    margin-left: 25%;
+  }
+  .image-setting {
+    input[type="file"]{
+      display: none;
+    }
+    .img-upload-wrapper {
+      width: 170px;
+      margin-left: 20%;
+      margin-top: 15px;
+      margin-bottom: 20px;
+
+      .file-upload-label {
+        width: 150px;
+        border: 2px solid darkgreen;
+        border-radius: 10px;
+        background-color: tan;
+        text-align: center;
+        font-size: 14px;
+        font-weight: normal;
+      }
+      .file-upload-label:hover {
+        background-color: lightgrey;
+        color: darkgreen;
+      }
+    }
+
+  }
+}

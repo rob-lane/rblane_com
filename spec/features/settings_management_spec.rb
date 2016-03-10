@@ -64,4 +64,40 @@ RSpec.describe 'Settings management', :type => :feature do
 
   end
 
+  context 'the logo setting' do
+    before do
+      @setting = FactoryGirl.create(:logo_setting)
+      @image = Image.create!(name: @setting.name, user: @user)
+    end
+
+    after do
+      @setting.destroy!
+      @image.destroy!
+    end
+
+    it 'displays on the default home page' do
+      visit '/'
+      within("#page-header") do
+        expect(page.first('img')['src']).to include(@image.file.url)
+      end
+    end
+
+    context 'updated from admin' do
+      before do
+        @original_value = @image.file.url
+        @new_image_file = Rails.root.join('spec', 'fixtures', 'default.jpg')
+      end
+
+      it 'is updated on the default home page' do
+        visit '/admin/settings'
+        attach_file "setting_#{@setting.id}", @new_image_file
+        click_button 'Save'
+        visit '/'
+        within("#page-header") do
+          expect(page.first('img')['src']).to include(@image.file.url)
+        end
+      end
+    end
+  end
+
 end

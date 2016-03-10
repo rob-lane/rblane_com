@@ -4,4 +4,10 @@ FactoryGirl.define do
     value "Test Title"
   end
 
+  factory :logo_setting, :class => :setting do
+    name "logo"
+    value ""
+    field_type "image"
+  end
+
 end
