@@ -55,5 +55,29 @@ RSpec.describe Admin::SettingsController, :type => :controller do
       put :update, params
       expect(@setting.reload.value).to eq(new_value)
     end
+
+    context 'including an image setting' do
+
+      before do
+        @image_setting = Setting.create(:name => 'test-image', :field_type => 'image')
+        params[:settings] << {:id => @image_setting.id, :name => @image_setting.name,
+                              :value => fixture_file_upload("#{Rails.root.join('spec', 'fixtures', 'default.jpg')}", 'image/png')}
+      end
+
+      after do
+        Image.find_by(:name => @image_setting.name).try(:delete)
+        @image_setting.destroy!
+      end
+
+      it 'creates a new image model' do
+        put :update, params
+        image = Image.find_by(:name => @image_setting.name)
+        expect(image).to_not be_nil
+        expect(image).to be_valid
+      end
+
+    end
+
+
   end
 end
