@@ -1,7 +1,8 @@
 RSpec.shared_examples "an admin controller" do
 
   let!(:admin_user) do
-    User.create(:email => 'test@testuser.test', :password => 'password')
+    user = User.find_by_email('test@testuser.test')
+    user ||= User.create(:email => 'test@testuser.test', :password => 'password')
   end
 
   before do

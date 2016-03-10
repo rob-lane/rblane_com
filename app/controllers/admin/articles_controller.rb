@@ -1,6 +1,7 @@
 class Admin::ArticlesController < AdminController
   def new
-    @article = Article.new(title: 'New Article', content: "")
+    @article = Article.new(title: 'New Article')
+    @article.content = ""
   end
 
   def create
@@ -21,7 +22,6 @@ class Admin::ArticlesController < AdminController
   def update
     @article = Article.find(params[:id])
     @article.update!(article_params)
-    @article.sync
     redirect_to admin_articles_path
   end
 

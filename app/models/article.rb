@@ -1,15 +1,21 @@
 class Article < ActiveRecord::Base
   attr_accessor :file
-  has_attached_file :file, :content_type => "text/plain", :path => '/rblane_com/articles/:filename'
-  validates_attachment :file, :presence => true, :content_type => { :content_type => "text/plain" }
+  attr_writer :content
+  has_attached_file :file, :path => '/rblane_com/articles/:filename'
+  validates_attachment :file, :presence => true, :content_type => { :content_type => 'text/plain' }
   validates_presence_of :title
+  validates_presence_of :content
+  before_validation :put_content
   belongs_to :author, :class_name => :user
 
   def content
-    Paperclip.io_adapters.for(file).read.gsub(/\r\n?/, "\n")
+    Paperclip.io_adapters.for(file).read.to_s.gsub(/\r\n?/, "\n")
   end
 
-  def content=(content)
-    self.update!(file: content)
+  def put_content
+    self.file = StringIO.new(@content)
+    self.file_file_name = "#{title.parameterize}.txt"
+    self.file.save
   end
+
 end
