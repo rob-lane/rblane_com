@@ -50,9 +50,7 @@ describe 'article CRUD' do
       fill_in 'Content', :with => updated_content
       click_button 'Save'
 
-      #@article = Article.find(@article.id)
       @article.reload
-      @article.fetch_content
       expect(@article.title).to eql(updated_title)
       expect(@article.content).to eql(updated_content)
     end
@@ -84,14 +82,6 @@ describe 'article CRUD' do
         click_link "Delete"
       end
       expect(page).to_not have_content(@article.title)
-    end
-
-    it 'removes the content from the remote store' do
-      visit '/admin/articles'
-      within "#article_snippet_#{@article.id}" do
-        click_link "Delete"
-      end
-      expect {@article.fetch_content}.to raise_error(Aws::S3::Errors::NoSuchKey)
     end
   end
 end
