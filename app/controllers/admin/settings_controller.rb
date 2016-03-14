@@ -7,7 +7,7 @@ class Admin::SettingsController < AdminController
   def update
     params[:settings].each do |setting_params|
       setting = Setting.find_by(:id => setting_params[:id])
-      if setting.field_type == 'image'
+      if setting.field_type == 'image' && setting_params[:value].present?
         update_image_setting(setting, setting_params[:value])
       else
         setting.value = setting_params[:value]
@@ -15,6 +15,16 @@ class Admin::SettingsController < AdminController
       setting.save!
     end
     redirect_to admin_settings_path
+  end
+
+  def revert
+    setting = Setting.find(params[:id])
+    if setting.field_type == 'image'
+      image = Image.find_by(:name => setting.name)
+      image.file.clear
+      image.save
+    end
+    render nothing: true
   end
 
   private

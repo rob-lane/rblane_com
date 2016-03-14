@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :sessions, :only => [:new, :create, :destroy]
     get 'settings', :to => 'settings#index'
     match 'settings', :to => 'settings#update', via: :put
+    match 'settings/revert', :to => 'settings#revert', via: :post
   end
   get 'articles/index'
   get 'home/index'

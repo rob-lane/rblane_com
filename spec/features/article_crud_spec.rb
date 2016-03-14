@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'article CRUD' do
+describe 'article CRUD', :type => :feature, :js => true do
   include_examples "signed in"
 
   after do

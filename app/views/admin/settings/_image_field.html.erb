@@ -4,6 +4,7 @@
   <%= remote_image_tag setting.value, :alt => setting.name %><br />
   <div class="img-upload-wrapper">
     <%= label_tag "setting_#{setting.id}", "Select New Image", :class => 'file-upload-label' %>
-    <%= file_field_tag 'setting[][value]', :id => "setting_#{setting.id}" %>
+    <%= file_field_tag 'settings[][value]', :id => "setting_#{setting.id}" %>
+    <%= button_tag 'Revert', :class => 'file-revert-button' , :data => {:setting_id => setting.id} %>
   </div>
 </li>

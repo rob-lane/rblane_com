@@ -48,7 +48,8 @@ group :development, :test do
   gem 'byebug'
   gem 'rspec-rails'
   gem 'capybara', '~> 2.6'
-  gem 'capybara-webkit', '~> 1.8'
+  gem 'selenium-webdriver'
+  gem 'chromedriver-helper'
   gem 'factory_girl_rails', '~> 4.6'
 end
 

@@ -1,6 +1,6 @@
 <h1 class="content-title">Blog Settings</h1>
 <ul class="settings-form-group">
-  <%= form_tag(admin_settings_path, :method => :put, :html => { :multipart => true }) do %>
+  <%= form_tag(admin_settings_path, :method => :put, :multipart => true) do %>
     <% @settings.each do |setting| %>
       <%= render :partial => "#{setting.field_type}_field", :locals => {:setting => setting} %>
     <% end %>
